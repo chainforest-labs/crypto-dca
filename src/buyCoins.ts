@@ -1,7 +1,7 @@
-import { authedClient, checkSufficientFunds } from 'coinbase';
 import { MarketOrder } from 'coinbase-pro';
 import dotenv from 'dotenv';
 import _ from 'lodash';
+import { authedClient, checkSufficientFunds } from './coinbase';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();

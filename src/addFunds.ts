@@ -1,4 +1,4 @@
-import { authedClient, checkSufficientFunds, makeDeposit } from 'coinbase';
+import { authedClient, checkSufficientFunds, makeDeposit } from './coinbase';
 
 export async function addFunds() {
   const accounts = await authedClient.getAccounts();

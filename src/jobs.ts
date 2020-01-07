@@ -1,5 +1,5 @@
-import { addFunds } from 'addFunds';
 import { CronJob } from 'cron';
+import { addFunds } from './addFunds';
 import { buyCoins } from './buyCoins';
 
 console.log('Initializing jobs...');
