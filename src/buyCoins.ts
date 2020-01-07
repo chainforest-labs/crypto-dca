@@ -1,4 +1,5 @@
-import CoinbasePro, { MarketOrder } from 'coinbase-pro';
+import { authedClient, checkSufficientFunds } from 'coinbase';
+import { MarketOrder } from 'coinbase-pro';
 import dotenv from 'dotenv';
 import _ from 'lodash';
 
@@ -11,32 +12,8 @@ const BIWEEKLY_BUY = process.env.BIWEEKLY_BUY_AMOUNT
   : 0;
 const DAILY_BUY = _.round(BIWEEKLY_BUY / 14, 2);
 
-const key = process.env.COINBASE_KEY || '';
-const secret = process.env.COINBASE_SECRET || '';
-const passphrase: string = process.env.COINBASE_PASSPHRASE || '';
-const uri = process.env.COINBASE_URI;
-
-const authedClient = new CoinbasePro.AuthenticatedClient(
-  key,
-  secret,
-  passphrase,
-  uri,
-);
-
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function checkSufficientFunds(
-  accounts: any[],
-  currency: string,
-  minFunds: number,
-) {
-  for (const account of accounts) {
-    if (account.currency === currency) {
-      return account.available >= minFunds;
-    }
-  }
 }
 
 function checkFilled(fills: any, orderId: string) {
@@ -69,6 +46,7 @@ export async function buyCoins() {
 
   const fills = await authedClient.getFills({
     product_id: 'BTC-USD',
+    order_id: order.id,
   });
 
   if (checkFilled(fills, order.id)) {
