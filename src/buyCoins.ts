@@ -6,7 +6,9 @@ if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
-const BIWEEKLY_BUY = process.env.BIWEEKLY_BUY_AMOUNT ? parseFloat(process.env.BIWEEKLY_BUY_AMOUNT) || 0;
+const BIWEEKLY_BUY = process.env.BIWEEKLY_BUY_AMOUNT
+  ? parseFloat(process.env.BIWEEKLY_BUY_AMOUNT)
+  : 0;
 const DAILY_BUY = _.round(BIWEEKLY_BUY / 14, 2);
 
 const key = process.env.COINBASE_KEY || '';
