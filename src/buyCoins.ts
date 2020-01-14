@@ -28,30 +28,30 @@ function checkFilled(fills: any, orderId: string) {
 
 export async function buyCoins() {
   const accounts = await authedClient.getAccounts();
-  if (!checkSufficientFunds(accounts, 'USD', 250)) {
-    console.log('Insufficient funds!');
-  }
-
-  const buyParams: MarketOrder = {
-    funds: DAILY_BUY.toString(), // USD
-    product_id: 'BTC-USD',
-    type: 'market',
-    side: 'buy',
-    size: null,
-  };
-  console.log(`Buying...$${DAILY_BUY} BTC`);
-  const order = await authedClient.placeOrder(buyParams);
-
-  await sleep(5000);
-
-  const fills = await authedClient.getFills({
-    product_id: 'BTC-USD',
-    order_id: order.id,
-  });
-
-  if (checkFilled(fills, order.id)) {
-    console.log(`Success! Order: ${order.id}`);
+  if (!checkSufficientFunds(accounts, 'USD', DAILY_BUY)) {
+    console.log(`Insufficient funds for daily buy ($${DAILY_BUY}) !`);
   } else {
-    console.log(`Order ${order.id} did not fill`);
+    const buyParams: MarketOrder = {
+      funds: DAILY_BUY.toString(), // USD
+      product_id: 'BTC-USD',
+      type: 'market',
+      side: 'buy',
+      size: null,
+    };
+    console.log(`Buying...$${DAILY_BUY} BTC`);
+    const order = await authedClient.placeOrder(buyParams);
+
+    await sleep(5000);
+
+    const fills = await authedClient.getFills({
+      product_id: 'BTC-USD',
+      order_id: order.id,
+    });
+
+    if (checkFilled(fills, order.id)) {
+      console.log(`Success! Order: ${order.id}`);
+    } else {
+      console.log(`Order ${order.id} did not fill`);
+    }
   }
 }
