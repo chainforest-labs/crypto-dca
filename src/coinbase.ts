@@ -83,6 +83,7 @@ export function checkSufficientFunds(
 ) {
   for (const account of accounts) {
     if (account.currency === currency) {
+      console.log(`Amount available: $${account.available}`);
       return account.available >= minFunds;
     }
   }
