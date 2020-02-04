@@ -13,7 +13,7 @@ const secret = process.env.COINBASE_SECRET || '';
 const passphrase = process.env.COINBASE_PASSPHRASE || '';
 const uri = process.env.COINBASE_URI;
 
-const PAYMENT_METHOD_ID = '44f46f74-ff82-5380-9faa-fa726cb8db1f';
+const PAYMENT_METHOD_ID = process.env.PAYMENT_METHOD_ID;
 
 export const authedClient = new CoinbasePro.AuthenticatedClient(
   key,
