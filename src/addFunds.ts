@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import _ from 'lodash';
+
 import { authedClient, checkSufficientFunds, makeDeposit } from './coinbase';
+import { wait } from './helpers';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
@@ -20,6 +22,8 @@ export async function addFunds() {
     console.log(
       `Initiated deposit of ${result.amount} with id ${result.id} paying out at ${result.payout_at}`,
     );
+    // Wait 15 minutes for funds to clear
+    await wait(15 * 60 * 1000);
   } else {
     console.log('Sufficient funds!');
   }
