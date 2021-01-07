@@ -1,7 +1,9 @@
 import { MarketOrder } from 'coinbase-pro';
 import dotenv from 'dotenv';
 import _ from 'lodash';
+
 import { authedClient, checkSufficientFunds } from './coinbase';
+import { wait } from './helpers';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
@@ -48,6 +50,7 @@ export async function buyCoins() {
       order_id: order.id,
     });
 
+    await wait(60 * 1000);
     if (checkFilled(fills, order.id)) {
       console.log(`Success! Order: ${order.id}`);
     } else {
