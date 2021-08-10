@@ -25,7 +25,11 @@
     "moment-timezone": "^0.5.27",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.7.4"
+    "tsconfig-paths": "^3.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.13",
+    "ts-node": "^10.2.0",
+    "typescript": "^3.9.10"
   }
 }
