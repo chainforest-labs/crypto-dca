@@ -17,7 +17,7 @@ npx ts-node src/dailyJob.ts
 
 # To deploy, I used Heroku:
 
-- Push this repo to the Heroku remote
+- Push this repo to the Heroku remote. On deploy, Node deployments will automatically execute an app’s `build` script during build if one is defined `package.json` (which it is). The build script removes the `dst` folder and then runs `tsc` wihch compiles the typescript and saves the output to `./dst`
 - Install the "Heroku Scheduler" Add-On. 
   - You'll use this add-on to kick off the process to add funds and buy coins
   - Under "Schedule", set it to run "Every day at..." "04:00 PM" UTC. You can set it to run at whatever time you want. 
@@ -30,4 +30,3 @@ npx ts-node src/dailyJob.ts
   - COINBASE_URI - Set to `https://api.pro.coinbase.com`
   - COIN_TO_BUY - Set to any coin available on Coinbase (eg. BTC, ETH, SOL, AVAX, etc)
   - PAYMENT_METHOD_ID - The payment ID for your connected bank account. You can get all connected payment ids via the `getPaymentMethods` method in `coinbase.ts` 
-  
